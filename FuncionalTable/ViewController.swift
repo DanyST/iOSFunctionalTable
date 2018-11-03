@@ -24,7 +24,8 @@ class ViewController: UIViewController {
     // MARK: - Properties
     var model: [Item] = [] {
         didSet {
-            //
+            // Cada vez que cambie mi modelo, recargamos la tabla
+            tableView.reloadData()
         }
     }
     
@@ -35,6 +36,9 @@ class ViewController: UIViewController {
     // Mark - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Añadimos datos a mi modelo
+        self.model = items
     }
     
     // MARK: - IBActions
@@ -55,7 +59,18 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Obtenemos el modelo
+        let item = model[indexPath.row]
         
+        // Creamos la celda (o nos la dan por caché)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        // Sincronizamos vista y modelo
+        cell.textLabel?.text = item.name
+        cell.detailTextLabel?.text = "\(item.totalCost) EUR"
+    
+        // devolvemos la celda
+        return cell
     }
     
     

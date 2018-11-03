@@ -14,6 +14,6 @@ struct Item {
     }
     
     let name: String
-    let type: TypeItem
+    let type: itemType
     let totalCost: Int
 }
