@@ -9,12 +9,25 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    // Mark - Outlets
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var totalLabel: UILabel!
+    
+    // Mark - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
-
-
+    
+    // MARK: - IBActions
+    @IBAction func showAll(_ sender: Any) {
+    }
+    
+    @IBAction func showFruits(_ sender: Any) {
+    }
+    
+    @IBAction func showVegetables(_ sender: Any) {
+    }
+    
 }
 
