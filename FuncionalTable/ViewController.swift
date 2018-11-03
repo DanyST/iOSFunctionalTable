@@ -43,12 +43,27 @@ class ViewController: UIViewController {
     
     // MARK: - IBActions
     @IBAction func showAll(_ sender: Any) {
+        self.model = items
     }
     
     @IBAction func showFruits(_ sender: Any) {
+        // Functional way
+        self.model = items.filter { $0.type == .fruit }
+        
+        // Not functional way
+//        var fruits: [Item] = []
+//
+//        for fruit in fruits {
+//            if fruit.type == .fruit {
+//                fruits.append(fruit)
+//            }
+//        }
+//
+//        self.model = fruits
     }
     
     @IBAction func showVegetables(_ sender: Any) {
+        self.model = items.filter { $0.type == .vegetable }
     }
     
 }
