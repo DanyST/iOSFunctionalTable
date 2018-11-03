@@ -8,17 +8,6 @@
 
 import UIKit
 
-let items = [
-    Item(name: "Papa", type: .vegetable, totalCost: 4),
-    Item(name: "Pollo", type: .meet, totalCost: 12),
-    Item(name: "Zanahoria", type: .vegetable, totalCost: 5),
-    Item(name: "Manzana", type: .fruit, totalCost: 7),
-    Item(name: "Durazno", type: .fruit, totalCost: 6),
-    Item(name: "Lechuga", type: .vegetable, totalCost: 8),
-    Item(name: "Pescado", type: .meet, totalCost: 9),
-    Item(name: "Tomate", type: .vegetable, totalCost: 7)
-]
-
 class ViewController: UIViewController {
     
     // MARK: - Properties
@@ -26,6 +15,13 @@ class ViewController: UIViewController {
         didSet {
             // Cada vez que cambie mi modelo, recargamos la tabla
             tableView.reloadData()
+            
+            // 1ra forma
+//            let values = model.map { $0.totalCost }
+//            self.totalLabel.text = "\(values.reduce(0, +)) EUR"
+            
+            // 2da forma
+            self.totalLabel.text = "\(model.reduce(0, { $0 + $1.totalCost })) EUR"
         }
     }
     
@@ -38,17 +34,19 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Añadimos datos a mi modelo
-        self.model = items
+//        self.model = Repository.local.items
+        self.model = Repository.local.nestedItems.flatMap { $0.compactMap{ $0 } }
     }
     
     // MARK: - IBActions
     @IBAction func showAll(_ sender: Any) {
-        self.model = items
+        self.model = Repository.local.nestedItems.flatMap { $0.compactMap{ $0 } }
     }
     
     @IBAction func showFruits(_ sender: Any) {
         // Functional way
-        self.model = items.filter { $0.type == .fruit }
+        self.model = Repository.local.nestedItems.flatMap { $0.compactMap{ $0 } }
+            .filter { $0.type == .fruit } //items.filter { $0.type == .fruit }
         
         // Not functional way
 //        var fruits: [Item] = []
@@ -63,7 +61,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showVegetables(_ sender: Any) {
-        self.model = items.filter { $0.type == .vegetable }
+        self.model = Repository.local.nestedItems.flatMap { $0.compactMap{ $0 } }
+            .filter { $0.type == .vegetable }//items.filter { $0.type == .vegetable }
     }
     
 }

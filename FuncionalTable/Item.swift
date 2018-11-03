@@ -10,7 +10,7 @@ import Foundation
 
 struct Item {
     enum itemType {
-        case fruit, vegetable, meet
+        case fruit, vegetable, meat
     }
     
     let name: String
